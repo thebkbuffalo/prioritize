@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1><span>Priori</span><span>tize</span></h1>
+    <h1><span class='blue'>Priori</span><span class='purple'>tize</span></h1>
 
+    <h2>Tasks:</h2>
     <ul>
       <li v-for='task in tasks'>{{ task.description }}</li>
     </ul>
