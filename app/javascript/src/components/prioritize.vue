@@ -7,14 +7,14 @@
     <ul v-if='!showFullList'>
       <li v-for='task in tasks' v-if='!task.completed'>
         {{ task.description }} 
-        <button class='completeBtn' @click="markComplete(task.id)">mark complete</button>
+        <button class='completeBtn' @click="updateTask(task.id, 'true')">mark complete</button>
       </li>
     </ul>
     <ul v-if='showFullList'>
       <li v-for='task in tasks' :class="task.completed ? 'completedTask' : ''">
         {{ task.description }} 
-        <button v-if='task.completed' class='completeBtn' @click="markIncomplete(task.id)">Mark as NOT complete</button>
-        <button v-if='!task.completed' class='completeBtn' @click="markComplete(task.id)">mark complete</button>
+        <button v-if='task.completed' class='completeBtn' @click="updateTask(task.id, 'false')">Mark as NOT complete</button>
+        <button v-if='!task.completed' class='completeBtn' @click="updateTask(task.id, 'true')">mark complete</button>
       </li>
     </ul>
   </div>
@@ -37,10 +37,21 @@
       setTasks: function (resp) {
         this.tasks = resp.data;
       },
-      markComplete: function (taskId) {
-        Task.updateTask(taskId, 'true');
-        this.tasks.find(t=>t.id == taskId).completed = true;
+      updateTask: function (taskId, completed) {
+        Task.updateTask(taskId, completed);
+        if(completed == 'true'){
+          this.tasks.find(t=>t.id == taskId).completed = true;
+        }else{
+          this.tasks.find(t=>t.id == taskId).completed = false;
+        }
       },
+      // markComplete: function (taskId) {
+      //   Task.updateTask(taskId, 'true');
+      //   this.tasks.find(t=>t.id == taskId).completed = true;
+      // },
+      // markIncomplete: function (taskId) {
+
+      // }
       toggleList: function () {
         let toggleButton = document.getElementById('toggleListsButton');
         if(this.showFullList == false){
