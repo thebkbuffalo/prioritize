@@ -39,4 +39,8 @@ ul {
       background-color: lighten($blue, 20);
     }
   }
+  li.completedTask {
+    background-color: $purple!important;
+    text-decoration: line-through;
+  }
 }
