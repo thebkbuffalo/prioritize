@@ -21,7 +21,6 @@
 
 <script>
   import Task from '../models/task';
-  import axios from 'axios';
 
   export default {
     name: 'prioritize',
@@ -38,12 +37,8 @@
         this.tasks = resp.data;
       },
       markComplete: function (taskId) {
-        Task.updateTask(taskId, 'true').then((resp) => {
-          let data = resp['data']
-          if(data['completed'] === 'true'){
-            $vm.tasks.find(t=>t.id == data['taskId']).completed = true;
-          }
-        })
+        Task.updateTask(taskId, 'true');
+        this.tasks.find(t=>t.id == taskId).completed = true;
       }
     },
 
