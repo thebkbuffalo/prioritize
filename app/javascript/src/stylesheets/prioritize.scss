@@ -29,6 +29,8 @@ ul {
     border:           3px solid lighten($purple, 30);
     border-radius:    4px;
     background-color: lighten($blue, 30);
+    
+    .completeBtn {float: right; margin-top: 6px;}
 
     &:hover {
       border-color:     lighten($purple, 20);
