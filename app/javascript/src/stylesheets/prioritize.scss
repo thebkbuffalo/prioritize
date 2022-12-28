@@ -9,6 +9,12 @@ h1 {
   text-align: center;
 }
 
+div#newTask {
+  text-align: center;
+  input {width: 450px; height: 30px;}
+  button {height: 30px;}
+}
+
 h2 {
   font-size:  2em;
   text-align: center;

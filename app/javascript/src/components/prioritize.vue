@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1><span class='blue'>Priori</span><span class='purple'>tize</span></h1>
-
+    <div id='newTask'>
+      <input v-model='form.description' class='newTaskInput' type='text' placeholder='new task'/> <button @click="addNewTask()">Add Task</button>
+    </div>
     <h2>Tasks:</h2>
     <button id='toggleListsButton' @click='toggleList()'>Show All The Tasks</button>
     <ul v-if='!showFullList'>
@@ -29,6 +31,7 @@
     data: function () {
       return {
         tasks: [],
+        form: {description: ''},
         showFullList: false
       }
     },
@@ -37,21 +40,21 @@
       setTasks: function (resp) {
         this.tasks = resp.data;
       },
-      updateTask: function (taskId, completed) {
-        Task.updateTask(taskId, completed);
-        if(completed == 'true'){
-          this.tasks.find(t=>t.id == taskId).completed = true;
+      updateListUi: function (resp) {
+        if(resp['data']['completed'] == 'true'){
+          Task.fetch().then(this.setTasks);
         }else{
-          this.tasks.find(t=>t.id == taskId).completed = false;
+          alert('something went wrong')
         }
       },
-      // markComplete: function (taskId) {
-      //   Task.updateTask(taskId, 'true');
-      //   this.tasks.find(t=>t.id == taskId).completed = true;
-      // },
-      // markIncomplete: function (taskId) {
-
-      // }
+      updateTask: function (taskId, completed) {
+        Task.updateTask(taskId, completed).then(this.updateListUi)
+      },
+      addNewTask: function() {
+        let description = this.form.description;
+        Task.postTask(description).then(this.updateListUi);
+        this.form.description = '';
+      },
       toggleList: function () {
         let toggleButton = document.getElementById('toggleListsButton');
         if(this.showFullList == false){

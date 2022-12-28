@@ -4,6 +4,11 @@ class Api::TasksController < ApplicationController
     render json: Task.all
   end
 
+  def create
+    new_task = Task.create(description: params[:description])
+    render json: {completed: 'true', new_task: new_task}
+  end
+
   def update
     task = Task.find(params[:id])
     completed = params[:completed]
