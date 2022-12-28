@@ -3,8 +3,15 @@
     <h1><span class='blue'>Priori</span><span class='purple'>tize</span></h1>
 
     <h2>Tasks:</h2>
-    <ul>
+    <button id='toggleListsButton' @click='showFullList = !showFullList'>Show All The Tasks</button>
+    <ul v-if='!showFullList'>
       <li v-for='task in tasks' v-if='!task.completed' :class="`task-${task.id}`">
+        {{ task.description }} 
+        <button class='completeBtn' @click="markComplete(task.id)">mark complete</button>
+      </li>
+    </ul>
+    <ul v-if='showFullList'>
+      <li v-for='task in tasks' :class="`task-${task.id}`">
         {{ task.description }} 
         <button class='completeBtn' @click="markComplete(task.id)">mark complete</button>
       </li>
@@ -21,7 +28,8 @@
     
     data: function () {
       return {
-        tasks: []
+        tasks: [],
+        showFullList: false
       }
     },
 
