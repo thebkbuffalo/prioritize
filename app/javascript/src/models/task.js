@@ -9,5 +9,8 @@ export default {
   },
   postTask: (description) => {
     return axios.post('/api/tasks', {description: description});
+  },
+  deleteTask: (taskId) => {
+    return axios.delete('/api/tasks/'+taskId)
   }
 }

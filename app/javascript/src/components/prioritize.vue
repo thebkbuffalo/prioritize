@@ -9,14 +9,17 @@
     <ul v-if='!showFullList'>
       <li v-for='task in tasks' v-if='!task.completed'>
         {{ task.description }} 
+        <button class='deleteBtn' @click="deleteTask(task.id)">delete task</button>
         <button class='completeBtn' @click="updateTask(task.id, 'true')">mark complete</button>
       </li>
     </ul>
     <ul v-if='showFullList'>
       <li v-for='task in tasks' :class="task.completed ? 'completedTask' : ''">
-        {{ task.description }} 
+        {{ task.description }}
+        <button class='deleteBtn' @click="deleteTask(task.id)">delete task</button>
         <button v-if='task.completed' class='completeBtn' @click="updateTask(task.id, 'false')">Mark as NOT complete</button>
         <button v-if='!task.completed' class='completeBtn' @click="updateTask(task.id, 'true')">mark complete</button>
+        
       </li>
     </ul>
   </div>
@@ -54,6 +57,9 @@
         let description = this.form.description;
         Task.postTask(description).then(this.updateListUi);
         this.form.description = '';
+      },
+      deleteTask: function(taskId) {
+        Task.deleteTask(taskId).then(this.updateListUi);
       },
       toggleList: function () {
         let toggleButton = document.getElementById('toggleListsButton');

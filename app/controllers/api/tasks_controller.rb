@@ -20,4 +20,10 @@ class Api::TasksController < ApplicationController
       render json: {completed: 'true', taskId: task.id}
     end
   end
+
+  def destroy
+    task = Task.find(params[:id])
+    task.destroy
+    render json: {completed: 'true'}
+  end
 end
