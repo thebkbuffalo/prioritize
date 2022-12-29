@@ -1,7 +1,7 @@
 class Api::TasksController < ApplicationController
   protect_from_forgery except: :update
   def index
-    render json: Task.all
+    render json: Task.all.sort_by{|task| task.completed ? 1 : 0}
   end
 
   def create

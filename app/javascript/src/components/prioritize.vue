@@ -9,16 +9,16 @@
     <ul v-if='!showFullList'>
       <li v-for='task in tasks' v-if='!task.completed'>
         {{ task.description }} 
-        <button class='deleteBtn' @click="deleteTask(task.id)">delete task</button>
-        <button class='completeBtn' @click="updateTask(task.id, 'true')">mark complete</button>
+        <button class='deleteBtn' @click="deleteTask(task.id)">Delete Task</button>
+        <button class='completeBtn' @click="updateTask(task.id, 'true')">Mark Complete</button>
       </li>
     </ul>
     <ul v-if='showFullList'>
       <li v-for='task in tasks' :class="task.completed ? 'completedTask' : ''">
         {{ task.description }}
         <button class='deleteBtn' @click="deleteTask(task.id)">delete task</button>
-        <button v-if='task.completed' class='completeBtn' @click="updateTask(task.id, 'false')">Mark as NOT complete</button>
-        <button v-if='!task.completed' class='completeBtn' @click="updateTask(task.id, 'true')">mark complete</button>
+        <button v-if='task.completed' class='completeBtn' @click="updateTask(task.id, 'false')">Mark as Incomplete</button>
+        <button v-if='!task.completed' class='completeBtn' @click="updateTask(task.id, 'true')">Mark as Complete</button>
         
       </li>
     </ul>
@@ -65,7 +65,7 @@
         let toggleButton = document.getElementById('toggleListsButton');
         if(this.showFullList == false){
           this.showFullList = true
-          toggleButton.innerHTML = 'Show NonCompleted Tasks'
+          toggleButton.innerHTML = 'Show Incomplete Tasks'
         }else{
           this.showFullList = false
           toggleButton.innerHTML = 'Show All The Tasks'
