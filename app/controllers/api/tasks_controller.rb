@@ -12,13 +12,9 @@ class Api::TasksController < ApplicationController
   def update
     task = Task.find(params[:id])
     completed = params[:completed]
-    if completed == 'true'
-      task.update(completed: true)
-      render json: {completed: 'true', taskId: task.id}
-    else
-      task.update(completed: false)
-      render json: {completed: 'true', taskId: task.id}
-    end
+    completed_bool = completed == 'true' ? true : false
+    task.update(completed: completed_bool)
+    render json: {completed: 'true', taskId: task.id}
   end
 
   def destroy
